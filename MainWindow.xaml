@@ -25,6 +25,11 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,40"/>
 
+            <TextBlock Text="Take care of your rose"
+                       FontSize="18"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,5"/>
+
             <TextBlock x:Name="RosePetalsText"
                        Text="🌹 0.0 Rose Petals"
                        FontSize="28"
@@ -36,6 +41,17 @@
                        Text="+1.0 Petals per second"
                        FontSize="20"
                        HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Water the rose to earn petals"
+                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       Margin="0,20,0,0"/>
+
+            <Button Content="💧 WATER THE ROSE"
+                    Width="200"
+                    Height="50"
+                    FontSize="16"
+                    Click="WaterRose_Click"/>
 
         </StackPanel>
 

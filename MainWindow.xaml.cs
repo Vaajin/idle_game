@@ -41,6 +41,13 @@ namespace idle_game
             UpdateUI();
         }
 
+        private void WaterRose_Click(object sender, RoutedEventArgs e)
+        {
+            rosePetals += 1;
+
+            UpdateUI();
+        }
+
         private void UpdateUI()
         {
             RosePetalsText.Text = $"🌹 {rosePetals:F1} Rose Petals";
