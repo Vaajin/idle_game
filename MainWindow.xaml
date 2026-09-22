@@ -84,7 +84,40 @@
                             Height="40"
                             Click="BuyWateringCan_Click"/>
 
-                </StackPanel>
+                <!-- Automation -->
+                <TextBlock Text="Automation"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,30,0,10"/>
+
+                <TextBlock Text="🐝 Bee Keeper"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Price: 100 Rose Petals"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Effect: +1 Petal every second"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Requirement: 100 Rose Petals"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <Button x:Name="BeeKeeperButton"
+                        Content="Unlock Bee Keeper"
+                        Width="200"
+                        Height="40"
+                        Click="BuyBeeKeeper_Click"/>
+
+                <TextBlock x:Name="ProductionLogText"
+                           Text="Production Log"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,0"/>
+
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </Window>
