@@ -10,79 +10,81 @@
         Width="800">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
 
-            <!-- Game title -->
-            <TextBlock Text="🌙 ROSA LUNARIS"
-                       FontSize="32"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,10"/>
+                    <!-- Game title -->
+                    <TextBlock Text="🌙 ROSA LUNARIS"
+                               FontSize="32"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
 
-            <TextBlock Text="A Magical Rose Garden"
-                       FontSize="18"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,40"/>
+                    <TextBlock Text="A Magical Rose Garden"
+                               FontSize="18"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,40"/>
 
-            <TextBlock x:Name="RosePetalsText"
-                       Text="🌹 0.0 Rose Petals"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,10"/>
+                    <TextBlock x:Name="RosePetalsText"
+                               Text="🌹 0.0 Rose Petals"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
 
-            <TextBlock x:Name="PetalsPerSecondText"
-                       Text="+1.0 Petals per second"
-                       FontSize="20"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,25"/>
+                    <TextBlock x:Name="PetalsPerSecondText"
+                               Text="+1.0 Petals per second"
+                               FontSize="20"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,25"/>
 
-            <!-- Manual income -->
-            <TextBlock Text="Take care of your rose"
-                       FontSize="18"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,5"/>
+                    <!-- Manual income -->
+                    <TextBlock Text="Take care of your rose"
+                               FontSize="18"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
 
-            <TextBlock Text="Water the rose to earn petals"
-                       FontSize="14"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,10"/>
+                    <TextBlock Text="Water the rose to earn petals"
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
 
-            <Button Content="💧 WATER THE ROSE"
-                    Width="200"
-                    Height="50"
-                    FontSize="16"
-                    Click="WaterRose_Click"/>
+                    <Button Content="💧 WATER THE ROSE"
+                            Width="200"
+                            Height="50"
+                            FontSize="16"
+                            Click="WaterRose_Click"/>
 
-            <!-- Upgrades -->
-            <TextBlock Text="Upgrades"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,30,0,10"/>
+                    <!-- Upgrades -->
+                    <TextBlock Text="Upgrades"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,30,0,10"/>
 
-            <TextBlock Text="💧 Watering Can"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"/>
+                    <TextBlock Text="💧 Watering Can"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
 
-            <TextBlock Text="Price: 10 Rose Petals"
-                       HorizontalAlignment="Center"/>
+                    <TextBlock Text="Price: 10 Rose Petals"
+                               HorizontalAlignment="Center"/>
 
-            <TextBlock Text="Effect: +1 Petal per second"
-                       HorizontalAlignment="Center"/>
+                    <TextBlock Text="Effect: +1 Petal per second"
+                               HorizontalAlignment="Center"/>
 
-            <TextBlock Text="Requirement: 10 Rose Petals"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,5"/>
+                    <TextBlock Text="Requirement: 10 Rose Petals"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
 
-            <Button x:Name="WateringCanButton"
-                    Content="Buy Watering Can"
-                    Width="200"
-                    Height="40"
-                    Click="BuyWateringCan_Click"/>
+                    <Button x:Name="WateringCanButton"
+                            Content="Buy Watering Can"
+                            Width="200"
+                            Height="40"
+                            Click="BuyWateringCan_Click"/>
 
-        </StackPanel>
+                </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
