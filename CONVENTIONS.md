@@ -56,6 +56,22 @@ For example:
 
 Keeping responsibilities separated makes the code easier to understand and maintain.
 
+### UI Event Handlers
+
+UI actions such as button clicks use an event handler with a descriptive name.
+
+For example:
+
+```csharp
+private void WaterRose_Click(object sender, RoutedEventArgs e)
+{
+    rosePetals += 1;
+    UpdateUI();
+}
+```
+
+The event handler should handle the action caused by the user. UI elements use descriptive names and their event handlers clearly describe what happens when the user interacts with them.
+
 ---
 
 ## 3. Code Formatting
