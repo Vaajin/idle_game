@@ -54,6 +54,7 @@ namespace idle_game
         private void BeeKeeperTimer_Tick(object? sender, EventArgs e)
         {
             rosePetals += 1;
+            beeKeeperProductions++;
 
             ProductionLogText.Text =
                 $"🐝 Bee Keeper: +1 Rose Petal ×{beeKeeperProductions}\n" +
