@@ -19,6 +19,7 @@ namespace idle_game
     {
         private double rosePetals = 0;
         private double petalsPerSecond = 1;
+        private double wateringCanCost = 10;
 
         private readonly DispatcherTimer gameTimer;
 
@@ -48,10 +49,23 @@ namespace idle_game
             UpdateUI();
         }
 
+        private void BuyWateringCan_Click(object sender, RoutedEventArgs e)
+        {
+            if (rosePetals >= wateringCanCost)
+            {
+                rosePetals -= wateringCanCost;
+                petalsPerSecond += 1;
+
+                UpdateUI();
+            }
+        }
+
         private void UpdateUI()
         {
             RosePetalsText.Text = $"🌹 {rosePetals:F1} Rose Petals";
             PetalsPerSecondText.Text = $"+{petalsPerSecond:F1} Petals per second";
+            
+            WateringCanButton.IsEnabled = rosePetals >= wateringCanCost;
         }
     }
 }
