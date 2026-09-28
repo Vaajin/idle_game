@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Threading;
 using System.Windows.Controls;
@@ -30,6 +33,7 @@ namespace idle_game
 
         private readonly DispatcherTimer gameTimer;
         private readonly DispatcherTimer beeKeeperTimer;
+        private readonly DispatcherTimer autosaveTimer;
 
         public MainWindow()
         {
@@ -43,6 +47,11 @@ namespace idle_game
             beeKeeperTimer = new DispatcherTimer();
             beeKeeperTimer.Interval = TimeSpan.FromSeconds(1);
             beeKeeperTimer.Tick += BeeKeeperTimer_Tick;
+
+            autosaveTimer = new DispatcherTimer();
+            autosaveTimer.Interval = TimeSpan.FromSeconds(30);
+            autosaveTimer.Tick += AutosaveTimer_Tick;
+            autosaveTimer.Start();
 
             UpdateUI();
         }
@@ -64,6 +73,11 @@ namespace idle_game
                 $"Total produced: {beeKeeperProductions} Rose Petals";
 
             UpdateUI();
+        }
+
+        private void AutosaveTimer_Tick(object? sender, EventArgs e)
+        {
+            SaveGame();
         }
 
         private void WaterRose_Click(object sender, RoutedEventArgs e)
@@ -128,6 +142,33 @@ namespace idle_game
             {
                 BeeKeeperButton.IsEnabled = rosePetals >= beeKeeperCost;
             }
+        }
+
+        private void SaveGame()
+        {
+            GameSaveData saveData = new GameSaveData
+            {
+                RosePetals = Math.Round(rosePetals, 1),
+                PetalsPerSecond = Math.Round(petalsPerSecond, 1),
+                WateringCansPurchased = wateringCansPurchased,
+                BeeKeeperUnlocked = beeKeeperUnlocked,
+                BeeKeeperProductions = beeKeeperProductions,
+                SavedAt = DateTime.Now
+            };
+
+            string json = JsonSerializer.Serialize(saveData, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            File.WriteAllText("savegame.json", json);
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveGame();
+
+            MessageBox.Show("Game saved successfully!");
         }
     }
 }
