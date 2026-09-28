@@ -72,6 +72,22 @@ private void WaterRose_Click(object sender, RoutedEventArgs e)
 
 The event handler should handle the action caused by the user. UI elements use descriptive names and their event handlers clearly describe what happens when the user interacts with them.
 
+### Calculations
+
+Game calculations that follow a specific formula should be placed in a separate method when possible.
+
+For example, the Watering Can price is calculated in its own method:
+
+```csharp
+private double GetWateringCanCost()
+{
+    return wateringCanBaseCost *
+           Math.Pow(wateringCanCostMultiplier, wateringCansPurchased);
+}
+```
+
+Keeping calculations in a separate method makes the code easier to read and allows the calculation to be reused without duplicating the formula.
+
 ---
 
 ## 3. Code Formatting
@@ -138,13 +154,15 @@ Add basic income system
 
 ## 7. Current Implementation
 
-The current implementation covers **User Story 1: Basic Income**.
+The current implementation covers **User Stories 1 to 5**.
+
+### User Story 1: Basic Income
 
 > **As a player, I want a basic income per second so I earn currency from the start.**
 
 The player automatically earns **Rose Petals** over time.
 
-### Current variables
+#### Current variables
 
 ```csharp
 private double rosePetals = 0;
@@ -154,7 +172,7 @@ private double petalsPerSecond = 1;
 * `rosePetals` stores the player's current amount of Rose Petals.
 * `petalsPerSecond` stores the amount of Rose Petals earned per second.
 
-### Game Timer
+#### Game Timer
 
 A `DispatcherTimer` is used to update the game:
 
@@ -174,11 +192,77 @@ The income is divided over these updates:
 
 This allows the Rose Petals counter to update continuously.
 
-### User Interface
+#### User Interface
 
-The HUD currently displays:
+The HUD displays:
 
 * The current amount of **Rose Petals**.
 * The current **Petals per Second**.
 
-This satisfies the requirements for the first User Story.
+---
+
+### User Story 2: Manual Income
+
+> **As a player, I want to increase income through manual actions, so I can earn currency faster.**
+
+The player can manually earn Rose Petals by watering the rose.
+
+```csharp
+private void WaterRose_Click(object sender, RoutedEventArgs e)
+{
+    rosePetals += 1;
+    UpdateUI();
+}
+```
+
+The user interface provides a clear instruction and button for the manual action.
+
+---
+
+### User Story 3: Upgrades
+
+> **As a player, I want to buy upgrades that increase my income per second, so I can grow faster.**
+
+The player can purchase upgrades that increase **Petals per Second**.
+
+Each upgrade displays:
+
+* Price
+* Effect
+* Requirement
+
+Upgrades that the player cannot afford are disabled.
+
+After purchasing an upgrade, its effect is applied immediately.
+
+---
+
+### User Story 4: Automation
+
+> **As a player, I want to unlock automation that replaces manual actions, so the game runs without interaction.**
+
+The player can unlock the **Bee Keeper** automation.
+
+The Bee Keeper uses its own `DispatcherTimer` and produces Rose Petals independently from the main game timer.
+
+Production is tracked and displayed in the production log.
+
+The produced Rose Petals are added to the player's total amount.
+
+---
+
+### User Story 5: Scalable Shop Costs
+
+> **As a player, I want scalable costs, so upgrades remain scalable as I progress.**
+
+Upgrade prices increase based on the number of times an upgrade has been purchased.
+
+The price follows this formula:
+
+```text
+base price × multiplier ^ number purchased
+```
+
+For example, the Watering Can starts at 10 Rose Petals and increases after each purchase.
+
+This allows the upgrade costs to increase as the player progresses.
