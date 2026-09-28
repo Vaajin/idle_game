@@ -68,13 +68,10 @@
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
 
-                    <TextBlock Text="Price: 10 Rose Petals"
-                               HorizontalAlignment="Center"/>
-
                     <TextBlock Text="Effect: +1 Petal per second"
                                HorizontalAlignment="Center"/>
 
-                    <TextBlock Text="Requirement: 10 Rose Petals"
+                    <TextBlock Text="Requirement: Enough Rose Petals"
                                HorizontalAlignment="Center"
                                Margin="0,0,0,5"/>
 

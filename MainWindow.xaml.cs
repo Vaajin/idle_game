@@ -19,7 +19,10 @@ namespace idle_game
     {
         private double rosePetals = 0;
         private double petalsPerSecond = 1;
-        private double wateringCanCost = 10;
+       
+        private double wateringCanBaseCost = 10;
+        private double wateringCanCostMultiplier = 1.5;
+        private int wateringCansPurchased = 0;
 
         private double beeKeeperCost = 100;
         private bool beeKeeperUnlocked = false;
@@ -70,12 +73,21 @@ namespace idle_game
             UpdateUI();
         }
 
+        private double GetWateringCanCost()
+        {
+            return wateringCanBaseCost *
+                   Math.Pow(wateringCanCostMultiplier, wateringCansPurchased);
+        }
+
         private void BuyWateringCan_Click(object sender, RoutedEventArgs e)
         {
+            double wateringCanCost = GetWateringCanCost();
+
             if (rosePetals >= wateringCanCost)
             {
                 rosePetals -= wateringCanCost;
                 petalsPerSecond += 1;
+                wateringCansPurchased++;
 
                 UpdateUI();
             }
@@ -98,8 +110,14 @@ namespace idle_game
         {
             RosePetalsText.Text = $"🌹 {rosePetals:F1} Rose Petals";
             PetalsPerSecondText.Text = $"+{petalsPerSecond:F1} Petals per second";
-            
-            WateringCanButton.IsEnabled = rosePetals >= wateringCanCost;
+
+            double wateringCanCost = GetWateringCanCost();
+
+            WateringCanButton.Content =
+                $"Buy Watering Can - {wateringCanCost:F1} Petals";
+
+            WateringCanButton.IsEnabled =
+                rosePetals >= wateringCanCost;
 
             if (beeKeeperUnlocked)
             {
