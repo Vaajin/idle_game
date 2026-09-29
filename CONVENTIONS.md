@@ -154,7 +154,7 @@ Add basic income system
 
 ## 7. Current Implementation
 
-The current implementation covers **User Stories 1 to 6**.
+The current implementation covers **User Stories 1 to 7**.
 
 ### User Story 1: Basic Income
 
@@ -300,15 +300,6 @@ The data is converted to JSON using `System.Text.Json`.
 
 The game provides a manual **Save Game** button that calls the `SaveGame()` method.
 
-```csharp
-private void SaveButton_Click(object sender, RoutedEventArgs e)
-{
-    SaveGame();
-
-    MessageBox.Show("Game saved successfully!");
-}
-```
-
 The save file is stored in the user's local application data folder:
 
 ```text
@@ -338,4 +329,46 @@ private void AutosaveTimer_Tick(object? sender, EventArgs e)
 
 This prevents duplicate save logic and ensures that manual saving and autosaving use the same process.
 
-The game currently saves the progress, but loading the saved progress is implemented separately as part of **User Story 7**.
+---
+
+### User Story 7: Load Progress
+
+> **As a player, I want to load my progress so I can resume an earlier session.**
+
+The game automatically attempts to load the saved progress when the application starts.
+
+If a save file exists, the JSON data is deserialized and the saved game values are restored.
+
+The loaded values include:
+
+* Current Rose Petals
+* Petals per second
+* Number of Watering Cans purchased
+* Bee Keeper unlocked status
+* Number of Bee Keeper productions
+
+If the Bee Keeper was unlocked when the game was saved, its timer is started again after loading.
+
+If no save file exists, the game starts with its normal default values.
+
+#### Corrupt Save Handling
+
+The save file is loaded inside a `try/catch` block.
+
+If the JSON file cannot be loaded or contains invalid data:
+
+1. An error message is shown to the player.
+2. The invalid save data is not used.
+3. The game starts with safe default values.
+
+The default values are:
+
+```text
+Rose Petals: 0
+Petals per second: 1
+Watering Cans purchased: 0
+Bee Keeper: locked
+Bee Keeper productions: 0
+```
+
+This prevents the application from crashing when the save file is corrupt.
