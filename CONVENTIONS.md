@@ -154,7 +154,7 @@ Add basic income system
 
 ## 7. Current Implementation
 
-The current implementation covers **User Stories 1 to 5**.
+The current implementation covers **User Stories 1 to 6**.
 
 ### User Story 1: Basic Income
 
@@ -215,7 +215,7 @@ private void WaterRose_Click(object sender, RoutedEventArgs e)
 }
 ```
 
-The user interface provides a clear instruction and button for the manual action.
+The interface provides a clear instruction and button for the manual action.
 
 ---
 
@@ -265,4 +265,77 @@ base price × multiplier ^ number purchased
 
 For example, the Watering Can starts at 10 Rose Petals and increases after each purchase.
 
-This allows the upgrade costs to increase as the player progresses.
+The calculation is placed in a separate method:
+
+```csharp
+private double GetWateringCanCost()
+{
+    return wateringCanBaseCost *
+           Math.Pow(wateringCanCostMultiplier, wateringCansPurchased);
+}
+```
+
+Keeping the calculation in a separate method makes the formula reusable and avoids duplicating the calculation.
+
+---
+
+### User Story 6: Save Progress
+
+> **As a player, I want to save my progress so I can continue later.**
+
+The game can save the current progress to a local JSON file.
+
+A separate `GameSaveData` class is used to define the data that needs to be saved.
+
+The save data contains:
+
+* Current Rose Petals
+* Petals per second
+* Number of Watering Cans purchased
+* Bee Keeper unlocked status
+* Number of Bee Keeper productions
+* Save timestamp
+
+The data is converted to JSON using `System.Text.Json`.
+
+The game provides a manual **Save Game** button that calls the `SaveGame()` method.
+
+```csharp
+private void SaveButton_Click(object sender, RoutedEventArgs e)
+{
+    SaveGame();
+
+    MessageBox.Show("Game saved successfully!");
+}
+```
+
+The save file is stored in the user's local application data folder:
+
+```text
+AppData\Local\RosaLunaris\savegame.json
+```
+
+The directory is created automatically if it does not exist.
+
+#### Autosave
+
+The game also uses a separate `DispatcherTimer` for autosaving.
+
+The autosave timer runs every 30 seconds:
+
+```csharp
+autosaveTimer.Interval = TimeSpan.FromSeconds(30);
+```
+
+When the timer ticks, it calls the same `SaveGame()` method used by the manual save button:
+
+```csharp
+private void AutosaveTimer_Tick(object? sender, EventArgs e)
+{
+    SaveGame();
+}
+```
+
+This prevents duplicate save logic and ensures that manual saving and autosaving use the same process.
+
+The game currently saves the progress, but loading the saved progress is implemented separately as part of **User Story 7**.
