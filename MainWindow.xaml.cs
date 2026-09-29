@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace idle_game
 {
@@ -34,6 +33,11 @@ namespace idle_game
         private readonly DispatcherTimer gameTimer;
         private readonly DispatcherTimer beeKeeperTimer;
         private readonly DispatcherTimer autosaveTimer;
+
+        private readonly string savePath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "RosaLunaris",
+            "savegame.json");
 
         public MainWindow()
         {
@@ -161,7 +165,8 @@ namespace idle_game
                 WriteIndented = true
             });
 
-            File.WriteAllText("savegame.json", json);
+            Directory.CreateDirectory(Path.GetDirectoryName(savePath)!);
+            File.WriteAllText(savePath, json);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
