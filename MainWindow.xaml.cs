@@ -57,6 +57,8 @@ namespace idle_game
             autosaveTimer.Tick += AutosaveTimer_Tick;
             autosaveTimer.Start();
 
+            LoadGame();
+
             UpdateUI();
         }
 
@@ -167,6 +169,50 @@ namespace idle_game
 
             Directory.CreateDirectory(Path.GetDirectoryName(savePath)!);
             File.WriteAllText(savePath, json);
+        }
+
+        private void LoadGame()
+        {
+            if (!File.Exists(savePath))
+            {
+                return;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(savePath);
+
+                GameSaveData? saveData =
+                    JsonSerializer.Deserialize<GameSaveData>(json);
+
+                if (saveData == null)
+                {
+                    throw new Exception("Save data is empty.");
+                }
+
+                rosePetals = saveData.RosePetals;
+                petalsPerSecond = saveData.PetalsPerSecond;
+
+                wateringCansPurchased = saveData.WateringCansPurchased;
+
+                beeKeeperUnlocked = saveData.BeeKeeperUnlocked;
+                beeKeeperProductions = saveData.BeeKeeperProductions;
+
+                if (beeKeeperUnlocked)
+                {
+                    beeKeeperTimer.Start();
+                }
+
+                UpdateUI();
+            }
+            catch
+            {
+                MessageBox.Show(
+                    "The save file could not be loaded. A new game will be started.",
+                    "Save Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
