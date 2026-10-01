@@ -22,11 +22,11 @@ namespace idle_game
         private double rosePetals = 0;
         private double petalsPerSecond = 1;
        
-        private double wateringCanBaseCost = 10;
-        private double wateringCanCostMultiplier = 1.5;
+        private readonly double wateringCanBaseCost = 10;
+        private readonly double wateringCanCostMultiplier = 1.5;
         private int wateringCansPurchased = 0;
 
-        private double beeKeeperCost = 100;
+        private readonly double beeKeeperCost = 100;
         private bool beeKeeperUnlocked = false;
         private int beeKeeperProductions = 0;
 
@@ -43,17 +43,23 @@ namespace idle_game
         {
             InitializeComponent();
 
-            gameTimer = new DispatcherTimer();
-            gameTimer.Interval = TimeSpan.FromMilliseconds(100);
+            gameTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(100)
+            };
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Start();
 
-            beeKeeperTimer = new DispatcherTimer();
-            beeKeeperTimer.Interval = TimeSpan.FromSeconds(1);
+            beeKeeperTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             beeKeeperTimer.Tick += BeeKeeperTimer_Tick;
 
-            autosaveTimer = new DispatcherTimer();
-            autosaveTimer.Interval = TimeSpan.FromSeconds(30);
+            autosaveTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(30)
+            };
             autosaveTimer.Tick += AutosaveTimer_Tick;
             autosaveTimer.Start();
 
@@ -152,7 +158,7 @@ namespace idle_game
 
         private void SaveGame()
         {
-            GameSaveData saveData = new GameSaveData
+            GameSaveData saveData = new()
             {
                 RosePetals = Math.Round(rosePetals, 1),
                 PetalsPerSecond = Math.Round(petalsPerSecond, 1),
